@@ -1,6 +1,12 @@
 drop table hospital cascade;
 drop table patient cascade;
 drop table appointment cascade;
+
+drop table past_appnt cascade;
+drop table active_appnt cascade;
+drop table available_appnt cascade;
+drop table waitlist_appnt cascade;
+
 drop table staff cascade;
 drop table doctor cascade;
 drop table department cascade;
@@ -8,6 +14,8 @@ drop table department cascade;
 drop table has cascade;
 drop table request_maintenance cascade;
 drop table schedule cascade;
+
+drop table search cascade;
 
 CREATE TABLE hospital(
 	hospital_id NUMERIC(9,0) PRIMARY KEY,
@@ -28,6 +36,31 @@ CREATE TABLE appointment(
 	timeslot NUMERIC(3,0),
     adate DATE
 );
+
+create table past_appnt (
+	appnt_id numeric(9,0),
+	primary key (appnt_id),
+	foreign key (appnt_id) references appointment(appnt_id)
+);
+
+create table active_appnt (
+        appnt_id numeric(9,0),
+        primary key (appnt_id),
+        foreign key (appnt_id) references appointment(appnt_id)
+);
+
+create table available_appnt (
+        appnt_id numeric(9,0),
+        primary key (appnt_id),
+        foreign key (appnt_id) references appointment(appnt_id)
+);
+
+create table waitlist_appnt (
+        appnt_id numeric(9,0),
+        primary key (appnt_id),
+        foreign key (appnt_id) references appointment(appnt_id)
+);
+
 
 CREATE TABLE staff(
     staff_id NUMERIC(9,0) PRIMARY KEY,
@@ -77,5 +110,15 @@ create table schedule (
 	appnt_id numeric(9,0),
 	primary key (staff_id, appnt_id),
 	foreign key (staff_id) references staff(staff_id),
+	foreign key (appnt_id) references appointment(appnt_id)
+);
+
+create table search (
+	hospital_id numeric(9,0),
+	patient_id numeric(9,0),
+	appnt_id numeric(9,0),
+	primary key (hospital_id, patient_id, appnt_id),
+	foreign key (hospital_id) references hospital(hospital_id),
+	foreign key (patient_id) references patient(patient_id),
 	foreign key (appnt_id) references appointment(appnt_id)
 );
