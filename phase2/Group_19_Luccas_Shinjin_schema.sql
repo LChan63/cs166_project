@@ -7,6 +7,7 @@ drop table department cascade;
 
 drop table has cascade;
 drop table request_maintenance cascade;
+drop table schedule cascade;
 
 CREATE TABLE hospital(
 	hospital_id NUMERIC(9,0) PRIMARY KEY,
@@ -69,4 +70,12 @@ create table request_maintenance (
 	primary key (doctor_id, staff_id),
 	foreign key (doctor_id) REFERENCES doctor(doctor_id),
 	foreign key (staff_id) references staff(staff_id)
+);
+
+create table schedule (
+	staff_id numeric(9,0),
+	appnt_id numeric(9,0),
+	primary key (staff_id, appnt_id),
+	foreign key (staff_id) references staff(staff_id),
+	foreign key (appnt_id) references appointment(appnt_id)
 );
