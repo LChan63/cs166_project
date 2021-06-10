@@ -298,6 +298,45 @@ public class DBproject{
 	}//end readChoice
 
 	public static void AddDoctor(DBproject esql) {//1
+		try{
+		String query = "insert into Doctor  values ((select count(*) from Doctor)+1,";
+		/*int doc_id = esql.executeQueryAndPrintResult("select count(*) from Doctor;");
+		String doc_id = "";
+		 System.out.print("Enter doctor id: ");
+		doc_id = in.readLine();
+		
+		while(doc_id=="") {
+			System.out.print("Enter doctor id: ");
+	                doc_id = in.readLine();
+		}
+		doc_id+=1;
+		System.out.print(doc_id);
+		query+=doc_id;
+		query+=",";*/
+		
+		System.out.print("Enter doctor name: ");
+		String doc_name=in.readLine();
+		query+="\'";
+		query+=doc_name;
+		query+="\'";
+		query+=",";
+		
+		System.out.print("Enter specialty: ");
+		String doc_spec=in.readLine();
+		query+="\'";
+                query+=doc_name;
+                query+="\'";
+		query+=",";
+		
+		System.out.print("Enter dept id: ");
+		String did=in.readLine();
+		query+=did;
+		query+=");";
+		System.out.print(query);
+		esql.executeUpdate(query);
+		} catch(Exception e) {
+			System.err.println(e.getMessage());
+		}	
 	}
 
 	public static void AddPatient(DBproject esql) {//2
