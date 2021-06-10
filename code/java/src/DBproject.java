@@ -343,6 +343,26 @@ public class DBproject{
 	}
 
 	public static void AddAppointment(DBproject esql) {//3
+		try{
+		String query="insert into Appointment values ((select count(*) from Appointment)+1,";
+		
+		System.out.print("Enter date: ");
+		String date=in.readLine();
+		query+="\'";
+		query+=date;
+		query+="\'";
+		query+=",";
+
+		System.out.print("Enter time slot: ");
+		String slot=in.readLine();
+		query+=slot;
+		query+=",";
+
+		query+="\'AV\');";
+		esql.executeUpdate(query);
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
 	}
 
 
