@@ -371,6 +371,30 @@ public class DBproject{
 	}
 
 	public static void ListAppointmentsOfDoctor(DBproject esql) {//5
+		try{
+		System.out.print("select doctor id: ");
+		String doc_id=in.readLine();
+		System.out.print("select date range from: ");
+		String date_start=in.readLine();
+		System.out.print("... to: ");
+                String date_end=in.readLine();
+
+		String query="select * from has_appointment h_a, Appointment a where h_a.appt_ID=a.appnt_ID and h_a.doctor_id=";
+		query+=doc_id;
+		query+="and a.adate>=";
+		query+="\'";
+		query+= date_start;
+		query+="\'";
+		query+=" and a.adate<=";
+		query+="\'";
+		query+=date_end;
+		query+="\'";
+		//query+="group by h_a.doctor_id;";
+
+		esql.executeQueryAndPrintResult(query);
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
 		// For a doctor ID and a date range, find the list of active and available appointments of the doctor
 	}
 
