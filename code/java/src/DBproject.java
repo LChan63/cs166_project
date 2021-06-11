@@ -403,6 +403,13 @@ public class DBproject{
 	}
 
 	public static void ListStatusNumberOfAppointmentsPerDoctor(DBproject esql) {//7
+		try{
+		String query = "select h_a.doctor_id, count(status), a.status as count_stat from has_appointment h_a, Appointment a where a.appnt_id=h_a.appt_id group by h_a.doctor_id, a.status order by  count_stat desc;";
+		esql.executeQueryAndPrintResult(query);
+	
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
 		// Count number of different types of appointments per doctors and list them in descending order
 	}
 
