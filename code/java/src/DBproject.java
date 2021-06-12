@@ -381,8 +381,9 @@ public class DBproject{
 		System.out.print("... to: ");
                 String date_end=in.readLine();
 
-		String query="select * from has_appointment h_a, Appointment a where h_a.appt_ID=a.appnt_ID and h_a.doctor_id=";
+		String query="select d.name, d.doctor_ID, a.appnt_ID, a.adate,a.time_slot,a.status from has_appointment h_a, Appointment a, Doctor d where h_a.appt_ID=a.appnt_ID and h_a.doctor_id=";
 		query+=doc_id;
+		query+=" and h_a.doctor_id=d.doctor_ID ";
 		query+="and a.adate>=";
 		query+="\'";
 		query+= date_start;
@@ -406,7 +407,7 @@ public class DBproject{
 
 	public static void ListStatusNumberOfAppointmentsPerDoctor(DBproject esql) {//7
 		try{
-		String query = "select h_a.doctor_id, count(status) as count_status, status from has_appointment h_a, Appointment a where a.appnt_id=h_a.appt_id group by h_a.doctor_id,status  order by count_status  desc;";
+		String query = "select d.name, count(status) as count_status, status from has_appointment h_a, Appointment a, Doctor d  where a.appnt_id=h_a.appt_id and d.doctor_ID=h_a.doctor_id group by d.name,status  order by count_status  desc;";
 		esql.executeQueryAndPrintResult(query);
 		
 		
