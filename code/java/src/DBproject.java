@@ -346,16 +346,18 @@ public class DBproject{
 		try{
 		String query="insert into Appointment values ((select count(*) from Appointment)+1,";
 		
-		System.out.print("Enter date: ");
+		System.out.print("Enter date (ie. mm/dd/yyyy): ");
 		String date=in.readLine();
 		query+="\'";
 		query+=date;
 		query+="\'";
 		query+=",";
 
-		System.out.print("Enter time slot: ");
+		System.out.print("Enter time slot (ie. \'8:00-10:00\'): ");
 		String slot=in.readLine();
+		query+="\'";
 		query+=slot;
+		query+="\'";
 		query+=",";
 
 		query+="\'AV\');";
@@ -374,7 +376,7 @@ public class DBproject{
 		try{
 		System.out.print("select doctor id: ");
 		String doc_id=in.readLine();
-		System.out.print("select date range from: ");
+		System.out.print("select date range from (ie. \'mm/dd/yyyy\'): ");
 		String date_start=in.readLine();
 		System.out.print("... to: ");
                 String date_end=in.readLine();
@@ -404,9 +406,16 @@ public class DBproject{
 
 	public static void ListStatusNumberOfAppointmentsPerDoctor(DBproject esql) {//7
 		try{
-		String query = "select h_a.doctor_id, count(status), a.status as count_stat from has_appointment h_a, Appointment a where a.appnt_id=h_a.appt_id group by h_a.doctor_id, a.status order by  count_stat desc;";
+		String query = "select h_a.doctor_id, count(status) as count_status, status from has_appointment h_a, Appointment a where a.appnt_id=h_a.appt_id group by h_a.doctor_id,status  order by count_status  desc;";
 		esql.executeQueryAndPrintResult(query);
-	
+		
+		
+		/*for(int i = 0; i < out.size(); ++i) {
+			for(int j=0; j<out.get(i).size();++j) {
+				System.out.print(out.get(i).get(j) + " ");
+			}
+			System.out.println("");
+		}*/
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
